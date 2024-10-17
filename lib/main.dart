@@ -54,6 +54,31 @@ class _TaskManagerHomePageState extends State<TaskManagerHomePage> {
         });
   }
 
+  void _showDeleteConfirmationDialog(BuildContext context, int index) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text('タスクを削除しますか？'),
+              content: Text('このタスクを削除してもよろしいですか？'),
+              actions: <Widget>[
+                TextButton(
+                    child: Text('キャンセル'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }),
+                TextButton(
+                    child: Text('削除'),
+                    onPressed: () {
+                      setState(() {
+                        _tasks.removeAt(index);
+                      });
+                      Navigator.of(context).pop();
+                    })
+              ]);
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,9 +94,7 @@ class _TaskManagerHomePageState extends State<TaskManagerHomePage> {
             trailing: IconButton(
               icon: Icon(Icons.delete),
               onPressed: () {
-                setState(() {
-                  _tasks.removeAt(index);
-                });
+                _showDeleteConfirmationDialog(context, index);
               },
             ),
           );

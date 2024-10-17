@@ -60,12 +60,15 @@ class _TaskManagerHomePageState extends State<TaskManagerHomePage> {
       appBar: AppBar(
         title: Text('タスク管理'),
       ),
-      body: ListView(children: <Widget>[
-        ListTile(
-            leading: Icon(Icons.check_box_outline_blank), title: Text('タスク1')),
-        ListTile(
-            leading: Icon(Icons.check_box_outline_blank), title: Text('タスク2')),
-      ]),
+      body: ListView.builder(
+        itemCount: _tasks.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: Icon(Icons.check_box_outline_blank),
+            title: Text(_tasks[index]),
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _displayAddTaskDialog(context);

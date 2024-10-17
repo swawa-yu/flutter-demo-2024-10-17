@@ -32,6 +32,13 @@ class _TaskManagerHomePageState extends State<TaskManagerHomePage> {
         ListTile(
             leading: Icon(Icons.check_box_outline_blank), title: Text('タスク2')),
       ]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // タスク追加の処理をここに書く
+        },
+        child: Icon(Icons.add),
+        tooltip: 'タスクを追加',
+      ),
     );
   }
 }

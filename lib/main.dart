@@ -66,6 +66,14 @@ class _TaskManagerHomePageState extends State<TaskManagerHomePage> {
           return ListTile(
             leading: Icon(Icons.check_box_outline_blank),
             title: Text(_tasks[index]),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                setState(() {
+                  _tasks.removeAt(index);
+                });
+              },
+            ),
           );
         },
       ),

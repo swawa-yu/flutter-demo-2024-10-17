@@ -14,24 +14,16 @@ class TaskManagerApp extends StatelessWidget {
   }
 }
 
-class TaskManagerHomePage extends StatefulWidget {
-  @override
-  _TaskManagerHomePageState createState() => _TaskManagerHomePageState();
-}
-
-class _TaskManagerHomePageState extends State<TaskManagerHomePage> {
+class TaskManagerHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('タスク管理'),
+        title: Text('タスク管理アプリ'),
       ),
-      body: ListView(children: <Widget>[
-        ListTile(
-            leading: Icon(Icons.check_box_outline_blank), title: Text('タスク1')),
-        ListTile(
-            leading: Icon(Icons.check_box_outline_blank), title: Text('タスク2')),
-      ]),
+      body: Center(
+        child: Text('ここにタスク一覧が表示されます'),
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(TaskManagerApp());
@@ -21,6 +22,25 @@ class TaskManagerHomePage extends StatefulWidget {
 
 class _TaskManagerHomePageState extends State<TaskManagerHomePage> {
   List<String> _tasks = [];
+
+  void _saveTasks() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('tasks', _tasks);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTasks();
+  }
+
+  @override
+  _loadTasks() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _tasks = prefs.getStringList('tasks') ?? [];
+    });
+  }
 
   void _displayAddTaskDialog(BuildContext context) {
     TextEditingController taskController = TextEditingController();
@@ -45,6 +65,7 @@ class _TaskManagerHomePageState extends State<TaskManagerHomePage> {
                 onPressed: () {
                   setState(() {
                     _tasks.add(taskController.text);
+                    _saveTasks();
                   });
                   Navigator.of(context).pop();
                 },
@@ -72,6 +93,7 @@ class _TaskManagerHomePageState extends State<TaskManagerHomePage> {
                     onPressed: () {
                       setState(() {
                         _tasks.removeAt(index);
+                        _saveTasks();
                       });
                       Navigator.of(context).pop();
                     })

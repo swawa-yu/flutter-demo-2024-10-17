@@ -20,6 +20,40 @@ class TaskManagerHomePage extends StatefulWidget {
 }
 
 class _TaskManagerHomePageState extends State<TaskManagerHomePage> {
+  List<String> _tasks = [];
+
+  void _displayAddTaskDialog(BuildContext context) {
+    TextEditingController taskController = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('新しいタスクを追加'),
+            content: TextField(
+              controller: taskController,
+              decoration: InputDecoration(hintText: 'タスク名を入力'),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('キャンセル'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text('追加'),
+                onPressed: () {
+                  setState(() {
+                    _tasks.add(taskController.text);
+                  });
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +68,7 @@ class _TaskManagerHomePageState extends State<TaskManagerHomePage> {
       ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // タスク追加の処理をここに書く
+          _displayAddTaskDialog(context);
         },
         child: Icon(Icons.add),
         tooltip: 'タスクを追加',
